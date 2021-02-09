@@ -1,8 +1,11 @@
 /* eslint-disable no-use-before-define */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import palette from '../styles/palette';
+import ModalPortal from './ModalPortal';
+import SignUpModal from './auth/SignUpModal';
+import useModal from '../hooks/useModal';
 
 const HeaderBlock = styled.div`
   position: sticky;
@@ -22,6 +25,7 @@ const HeaderBlock = styled.div`
     text-decoration: none;
     color: ${palette.charcoal};
     .header-logo {
+      font-size: 1.75rem;
       margin-right: 0.375rem;
       font-weight: bold;
       transition: all 0.3s;
@@ -60,25 +64,36 @@ const HeaderBlock = styled.div`
       }
     }
   }
+
+  @media (max-width: 1024px) {
+    margin: 0 auto;
+    width: 768px;
+  }
 `;
 
 const Header: React.FC = () => {
+  const { openModal, ModalPortal } = useModal();
   return (
-    <HeaderBlock>
-      <Link href="/">
-        <a className="header-logo-wrapper">
-          <span className="header-logo">find-it</span>
-        </a>
-      </Link>
-      <div className="header-auth-buttons">
-        <button type="button" className="header-sign-up-button">
-          sign
-        </button>
-        <button type="button" className="header-login-button">
-          login
-        </button>
-      </div>
-    </HeaderBlock>
+    <>
+      <HeaderBlock>
+        <Link href="/">
+          <a className="header-logo-wrapper">
+            <span className="header-logo">find-it</span>
+          </a>
+        </Link>
+        <div className="header-auth-buttons">
+          <button type="button" className="header-sign-up-button" onClick={openModal}>
+            sign
+          </button>
+          <button type="button" className="header-login-button">
+            login
+          </button>
+        </div>
+        <ModalPortal>
+          <SignUpModal />
+        </ModalPortal>
+      </HeaderBlock>
+    </>
   );
 };
 

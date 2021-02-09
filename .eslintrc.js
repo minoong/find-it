@@ -42,6 +42,8 @@ module.exports = {
     'import/prefer-default-export': 'off', //export default 를 사용하라.
     'no-param-reassign': 'off',
     'react/jsx-curly-newline': 'off', // jsx안에 }를 새로운 라인에 사용할 수 있다.
+    'no-use-before-define': 'off',
+    '@typescript-eslint/no-use-before-define': 'off',
     'react/jsx-filename-extension': [
       1,
       { extensions: ['.js', '.jsx', '.tsx'] }, //jsx사용가능한 확장자 설정
