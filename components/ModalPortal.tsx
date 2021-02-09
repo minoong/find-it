@@ -17,15 +17,8 @@ const ModalPortalBlock = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.144);
     z-index: 10;
-  }
-  .modal-contents {
-    padding: 0.5rem;
-    width: 25rem;
-    height: 25rem;
-    background-color: white;
-    z-index: 11;
   }
 `;
 
