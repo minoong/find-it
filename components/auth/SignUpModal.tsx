@@ -6,10 +6,12 @@ import PersonIcon from '../../public/static/svg/auth/person.svg';
 import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
 import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
 import palette from '../../styles/palette';
+import Input from '../common/Input';
 
 const SignUpModalBlock = styled.div`
   display: flex;
   flex-direction: column;
+  justify-items: center;
   width: 35.5rem;
   height: 38.375rem;
   background-color: white;
@@ -31,8 +33,9 @@ const SignUpModalBlock = styled.div`
     }
   }
 
-  div {
-    margin: 5px;
+  .input-wrapper {
+    position: relative;
+    margin-bottom: 1rem;
   }
 
   @keyframes zoomIn {
@@ -49,11 +52,22 @@ const SignUpModal: React.FC = () => {
   return (
     <SignUpModalBlock>
       <CloseXIcon className="modal-close-icon" />
-      <div>sdafasd</div>
-      <div>sdafasd</div>
-      <div>sdafasd</div>
-      <div>sdafasd</div>
-      <div>sdafasd</div>
+      <div className="input-wrapper">
+        <span className="awsome_input_border" />
+        <Input placeholder="이메일" type="email" name="email" icon={<MailIcon />} />
+      </div>
+      <div className="input-wrapper">
+        <Input placeholder="이름" name="firstName" icon={<PersonIcon />} />
+      </div>
+      <div className="input-wrapper">
+        <Input placeholder="성" name="lastName" icon={<PersonIcon />} />
+      </div>
+      <div className="input-wrapper">
+        <Input placeholder="패스워드" type="password" name="password" icon={<OpenedEyeIcon />} />
+      </div>
+      <div className="input-wrapper">
+        <Input placeholder="패스워드 확인" type="password" name="passwordConfirm" icon={<OpenedEyeIcon />} />
+      </div>
     </SignUpModalBlock>
   );
 };
