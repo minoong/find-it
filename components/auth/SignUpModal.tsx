@@ -9,8 +9,9 @@ import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { monthList, yearList } from '../../lib/staticData';
 import Button from '../common/Button';
+import { signUpAPI } from '../../lib/api/auth';
 
-const SignUpModalBlock = styled.div`
+const SignUpModalBlock = styled.form`
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -144,8 +145,26 @@ const SignUpModal: React.FC = () => {
     return getDays(range);
   }, [range]);
 
+  const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const { email, firstName, lastName, password } = form;
+
+      await signUpAPI({
+        email,
+        firstName,
+        lastName,
+        password,
+        birthday: `${birthday.year}${birthday.month}${birthday.day}`,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <SignUpModalBlock>
+    <SignUpModalBlock onSubmit={onSubmitSignUp}>
       <div className="top-butotn-wrapper">
         <CloseXIcon className="modal-close-icon" />
       </div>
