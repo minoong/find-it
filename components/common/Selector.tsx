@@ -11,8 +11,8 @@ const SelectorBlock = styled.div`
     height: 100%;
     background-color: white;
     border: 1px solid ${palette.gray_eb};
-    font-size: 1rem;
-    padding: 0 1rem;
+    font-size: 0.75rem;
+    padding: 0 0.7rem;
     border-radius: 0.25rem;
     outline: none;
     -webkit-appearance: none;

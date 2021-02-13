@@ -8,6 +8,7 @@ import palette from '../../styles/palette';
 import Input from '../common/Input';
 import Selector from '../common/Selector';
 import { monthList, yearList } from '../../lib/staticData';
+import Button from '../common/Button';
 
 const SignUpModalBlock = styled.div`
   display: flex;
@@ -42,8 +43,8 @@ const SignUpModalBlock = styled.div`
   .sign-up-birthday-label {
     font-size: 1rem;
     font-weight: 600;
-    margin-top: 1rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.125rem;
+    margin-bottom: 0.125rem;
   }
 
   .sign-up-modal-birthday-info {
@@ -145,7 +146,9 @@ const SignUpModal: React.FC = () => {
 
   return (
     <SignUpModalBlock>
-      <CloseXIcon className="modal-close-icon" />
+      <div className="top-butotn-wrapper">
+        <CloseXIcon className="modal-close-icon" />
+      </div>
       <div className="input-wrapper">
         <span className="awsome_input_border" />
         <Input placeholder="이메일" type="email" name="email" icon={<MailIcon />} onChange={onChangeInput} />
@@ -176,7 +179,6 @@ const SignUpModal: React.FC = () => {
       </div>
       <div className="sign-up-birthday-label">생일</div>
       <div className="sign-up-modal-birthday-info">만 18세 이상의 성인만 회원으로 가입할 수 있습니다.</div>
-
       <div className="sign-up-birthday-selectors">
         <div className="item">
           <Selector
@@ -200,6 +202,7 @@ const SignUpModal: React.FC = () => {
           />
         </div>
       </div>
+      <Button type="submit">가입하기</Button>
     </SignUpModalBlock>
   );
 };
