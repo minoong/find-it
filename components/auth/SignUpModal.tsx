@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
 import MailIcon from '../../public/static/svg/auth/mail.svg';
 import PersonIcon from '../../public/static/svg/auth/person.svg';
@@ -10,6 +11,7 @@ import Selector from '../common/Selector';
 import { monthList, yearList } from '../../lib/staticData';
 import Button from '../common/Button';
 import { signUpAPI } from '../../lib/api/auth';
+import { userActions } from '../../store/user';
 
 const SignUpModalBlock = styled.form`
   display: flex;
@@ -98,6 +100,7 @@ function emailValid(email: string): boolean {
 let range: number = 31;
 
 const SignUpModal: React.FC = () => {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({ email: '', firstName: '', lastName: '', password: '', passwordConfirm: '' });
   const [birthday, setBirthday] = useState({
     month: '',
@@ -151,13 +154,17 @@ const SignUpModal: React.FC = () => {
     try {
       const { email, firstName, lastName, password } = form;
 
-      await signUpAPI({
+      const { data } = await signUpAPI({
         email,
         firstName,
         lastName,
         password,
-        birthday: `${birthday.year}${birthday.month}${birthday.day}`,
+        birthday: new Date(`${birthday.year}-${birthday.month}-${birthday.day}`).toUTCString(),
       });
+
+      console.log(data);
+
+      dispatch(userActions.setLoggedUser(data));
     } catch (error) {
       console.error(error);
     }

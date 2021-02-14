@@ -35,12 +35,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const expires = new Date();
     expires.setMinutes(expires.getMinutes() + 5);
 
-    res.writeHead(302, {
-      Location: '/',
-      'Set-Cookie': `name=${token};Expires=${expires.toUTCString()}; HttpOnly; Path=/`,
-    });
+    res.setHeader('Set-Cookie', `name=${token};Expires=${expires.toUTCString()}; HttpOnly; Path=/`);
 
-    res.end();
+    const resUser: Partial<Pick<StoredUserType, 'password'>> = user;
+
+    delete resUser.password;
+
+    res.statusCode = 200;
+    return res.send(resUser);
+    // eslint-disable-next-line no-else-return
   } else {
     res.statusCode = 405;
 
