@@ -13,6 +13,7 @@ import Button from '../common/Button';
 import { signUpAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
 import validationModeHook from '../../hooks/useValidationMode';
+import PasswordWarning from './PasswordWarning';
 
 const SignUpModalBlock = styled.form`
   display: flex;
@@ -109,6 +110,7 @@ const SignUpModal: React.FC = () => {
     day: '',
     year: '',
   });
+  const [passwordObserver, setPasswordObserver] = useState(false);
   const { setValidationMode } = validationModeHook();
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -180,6 +182,19 @@ const SignUpModal: React.FC = () => {
     }
   };
 
+  // eslint-disable-next-line max-len
+  const isValidLength = useMemo(() => {
+    return /^.{8,12}$/.test(form.password);
+  }, [form.password]);
+  const isHasSymbolAndNumber = useMemo(() => {
+    console.log(/^.*(?=^.{8,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(form.password), form.password);
+    return /^.*(?=^.{8,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(form.password);
+  }, [form.password]);
+
+  const onFocusPassword = () => {
+    setPasswordObserver(true);
+  };
+
   return (
     <SignUpModalBlock onSubmit={onSubmitSignUp}>
       <div className="top-butotn-wrapper">
@@ -220,7 +235,7 @@ const SignUpModal: React.FC = () => {
           errorMessage="성을 입력하세요."
         />
       </div>
-      <div className="input-wrapper">
+      <div className="input-wrapper sign-up-password-input-wrapper">
         <Input
           placeholder="패스워드"
           type="password"
@@ -228,10 +243,17 @@ const SignUpModal: React.FC = () => {
           icon={<OpenedEyeIcon />}
           onChange={onChangeInput}
           useValidation
-          isValid={!!form.password}
+          isValid={!!isValidLength && !!isHasSymbolAndNumber}
           errorMessage="패스워드를 입력하세요."
+          onFocus={onFocusPassword}
         />
       </div>
+      {passwordObserver && (
+        <>
+          <PasswordWarning isValid={isValidLength} text="8~12 자리 입력" />
+          <PasswordWarning isValid={isHasSymbolAndNumber} text="특수문자, 숫자 조합" />
+        </>
+      )}
       <div className="input-wrapper">
         <Input
           placeholder="패스워드 확인"
