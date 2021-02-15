@@ -1,5 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import styled, { css } from 'styled-components';
+import { RootState } from '../../store';
 import palette from '../../styles/palette';
 
 type InputContainerProps = {
@@ -70,14 +72,9 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   errorMessage?: string;
 }
 
-const Input: React.FC<IProps> = ({
-  icon,
-  validationMode,
-  isValid = false,
-  useValidation = true,
-  errorMessage,
-  ...props
-}) => {
+// eslint-disable-next-line max-len
+const Input: React.FC<IProps> = ({ icon, isValid = false, useValidation = true, errorMessage, ...props }) => {
+  const validationMode = useSelector((state: RootState) => state.common.validationMode);
   return (
     // eslint-disable-next-line max-len
     <InputBlock

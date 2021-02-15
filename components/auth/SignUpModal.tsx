@@ -12,6 +12,7 @@ import { monthList, yearList } from '../../lib/staticData';
 import Button from '../common/Button';
 import { signUpAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
+import validationModeHook from '../../hooks/useValidationMode';
 
 const SignUpModalBlock = styled.form`
   display: flex;
@@ -76,7 +77,7 @@ const SignUpModalBlock = styled.form`
   }
 `;
 
-function getLastDay(year: number, month: number) {
+function getLastDay(year: number) {
   //  1. 4로 나누어 떨어지고, 100으로 나누어 떨어지지 않으면 윤년
   //  2. 4, 100, 400 으로 나누어 떨어지면 평년
   // eslint-disable-next-line yoda
@@ -108,7 +109,7 @@ const SignUpModal: React.FC = () => {
     day: '',
     year: '',
   });
-  const [validationMode, setValidationMode] = useState(false);
+  const { setValidationMode } = validationModeHook();
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -135,7 +136,7 @@ const SignUpModal: React.FC = () => {
     const { year, month } = newState;
 
     if (parseInt(month, 10) === 2) {
-      if (getLastDay(parseInt(year, 10), parseInt(month, 10))) {
+      if (getLastDay(parseInt(year, 10))) {
         range = 28;
       } else {
         range = 29;
@@ -192,7 +193,6 @@ const SignUpModal: React.FC = () => {
           name="email"
           icon={<MailIcon />}
           onChange={onChangeInput}
-          validationMode={validationMode}
           useValidation
           isValid={!!form.email}
           errorMessage="이메일이 필요합니다."
@@ -204,7 +204,6 @@ const SignUpModal: React.FC = () => {
           name="firstName"
           icon={<PersonIcon />}
           onChange={onChangeInput}
-          validationMode={validationMode}
           useValidation
           isValid={!!form.firstName}
           errorMessage="이름을 입력하세요."
@@ -216,7 +215,6 @@ const SignUpModal: React.FC = () => {
           name="lastName"
           icon={<PersonIcon />}
           onChange={onChangeInput}
-          validationMode={validationMode}
           useValidation
           isValid={!!form.lastName}
           errorMessage="성을 입력하세요."
@@ -229,7 +227,6 @@ const SignUpModal: React.FC = () => {
           name="password"
           icon={<OpenedEyeIcon />}
           onChange={onChangeInput}
-          validationMode={validationMode}
           useValidation
           isValid={!!form.password}
           errorMessage="패스워드를 입력하세요."
