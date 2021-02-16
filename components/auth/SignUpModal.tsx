@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
@@ -68,6 +68,15 @@ const SignUpModalBlock = styled.form`
     }
   }
 
+  p {
+    margin-top: 0.5rem;
+    .sign-up-modal-set-login {
+      color: ${palette.dark_cyan};
+      margin-left: 0.5rem;
+      cursor: pointer;
+    }
+  }
+
   @keyframes zoomIn {
     from {
       transform: scale(0);
@@ -102,7 +111,11 @@ function emailValid(email: string): boolean {
 // eslint-disable-next-line prefer-const
 let range: number = 31;
 
-const SignUpModal: React.FC = () => {
+interface IProps {
+  closeModal: () => void;
+}
+
+const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
   const dispatch = useDispatch();
   const [form, setForm] = useState({ email: '', firstName: '', lastName: '', password: '', passwordConfirm: '' });
   const [birthday, setBirthday] = useState({
@@ -112,6 +125,12 @@ const SignUpModal: React.FC = () => {
   });
   const [passwordObserver, setPasswordObserver] = useState(false);
   const { setValidationMode } = validationModeHook();
+
+  useEffect(() => {
+    return () => {
+      setValidationMode(false);
+    };
+  }, []);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setForm({
@@ -177,6 +196,7 @@ const SignUpModal: React.FC = () => {
       console.log(data);
 
       dispatch(userActions.setLoggedUser(data));
+      closeModal();
     } catch (error) {
       console.error(error);
     }
@@ -187,7 +207,6 @@ const SignUpModal: React.FC = () => {
     return /^.{8,12}$/.test(form.password);
   }, [form.password]);
   const isHasSymbolAndNumber = useMemo(() => {
-    console.log(/^.*(?=^.{8,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(form.password), form.password);
     return /^.*(?=^.{8,12}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/.test(form.password);
   }, [form.password]);
 
@@ -198,7 +217,7 @@ const SignUpModal: React.FC = () => {
   return (
     <SignUpModalBlock onSubmit={onSubmitSignUp}>
       <div className="top-butotn-wrapper">
-        <CloseXIcon className="modal-close-icon" />
+        <CloseXIcon className="modal-close-icon" onClick={closeModal} />
       </div>
       <div className="input-wrapper">
         <span className="awsome_input_border" />
@@ -289,6 +308,12 @@ const SignUpModal: React.FC = () => {
         </div>
       </div>
       <Button type="submit">가입하기</Button>
+      <p>
+        이미 find-it 계정이 있나요?
+        <span className="sign-up-modal-set-login" role="presentation" onClick={() => {}}>
+          로그인
+        </span>
+      </p>
     </SignUpModalBlock>
   );
 };

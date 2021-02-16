@@ -3,9 +3,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import palette from '../styles/palette';
-import ModalPortal from './ModalPortal';
 import SignUpModal from './auth/SignUpModal';
 import useModal from '../hooks/useModal';
+import user from '../lib/data/user';
+import { useSelector } from '../store';
+import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
 
 const HeaderBlock = styled.div`
   position: sticky;
@@ -65,6 +67,28 @@ const HeaderBlock = styled.div`
     }
   }
 
+  .header-user-profile {
+    display: flex;
+    align-items: center;
+    height: 2.625rem;
+    padding: 0 0.375rem 0 1rem;
+    border: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.18);
+    border-radius: 1.3125rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    &:hover {
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.12);
+    }
+    .header-user-profile-image {
+      margin-left: 0.5rem;
+      width: 1.875rem;
+      height: 1.875rem;
+      border-radius: 50%;
+    }
+  }
+
   @media (max-width: 1024px) {
     margin: 0 auto;
     width: 768px;
@@ -72,7 +96,8 @@ const HeaderBlock = styled.div`
 `;
 
 const Header: React.FC = () => {
-  const { openModal, ModalPortal } = useModal();
+  const { openModal, ModalPortal, closeModal } = useModal();
+  const user = useSelector((state) => state.user);
   return (
     <>
       <HeaderBlock>
@@ -81,16 +106,24 @@ const Header: React.FC = () => {
             <span className="header-logo">find-it</span>
           </a>
         </Link>
-        <div className="header-auth-buttons">
-          <button type="button" className="header-sign-up-button" onClick={openModal}>
-            sign
+        {!user.isLogged && (
+          <div className="header-auth-buttons">
+            <button type="button" className="header-sign-up-button" onClick={openModal}>
+              sign
+            </button>
+            <button type="button" className="header-login-button">
+              login
+            </button>
+          </div>
+        )}
+        {user.isLogged && (
+          <button className="header-user-profile" type="button">
+            <HamburgerIcon />
+            <img src={user.profileImage} className="header-user-profile-image" alt="" />
           </button>
-          <button type="button" className="header-login-button">
-            login
-          </button>
-        </div>
+        )}
         <ModalPortal>
-          <SignUpModal />
+          <SignUpModal closeModal={closeModal} />
         </ModalPortal>
       </HeaderBlock>
     </>

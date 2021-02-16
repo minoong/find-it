@@ -25,7 +25,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       lastName,
       password: hashedPassword,
       birthday,
-      profileImage: '/static/imsage/user/default_user_profile_image.jpg',
+      profileImage: '/static/image/user/default_user_profile_image.jpg',
     };
 
     Data.user.saveUsers([...users, user]);
