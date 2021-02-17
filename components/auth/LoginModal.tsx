@@ -10,6 +10,7 @@ import Input from '../common/Input';
 import Button from '../common/Button';
 import { authActions } from '../../store/auth';
 import { signInAPI } from '../../lib/api/auth';
+import validationModeHook from '../../hooks/useValidationMode';
 
 const LoginModalBlock = styled.form`
   display: flex;
@@ -89,6 +90,7 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
       ...form,
       [e.target.name]: e.target.value,
     });
+  const { setValidationMode } = validationModeHook();
 
   const moveToSignUp = () => {
     dispatch(authActions.setAuthMode('signup'));
@@ -96,6 +98,7 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setValidationMode(true);
 
     if (!form.email || !form.password) {
       alert('이메일과 패스워드를 확인해 주세요.');
@@ -118,10 +121,26 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
         <CloseXIcon className="modal-close-icon" onClick={closeModal} />
       </div>
       <div className="input-wrapper">
-        <Input placeholder="이메일" type="email" name="email" icon={<MailIcon />} onChange={onChange} />
+        <Input
+          placeholder="이메일"
+          type="email"
+          name="email"
+          icon={<MailIcon />}
+          onChange={onChange}
+          isValid={form.email !== ''}
+          errorMessage="이메일을 입력하세요."
+        />
       </div>
       <div className="input-wrapper">
-        <Input placeholder="패스워드" name="password" type="password" icon={<ClosedEyeIcon />} onChange={onChange} />
+        <Input
+          placeholder="패스워드"
+          name="password"
+          type="password"
+          icon={<ClosedEyeIcon />}
+          onChange={onChange}
+          isValid={form.password !== ''}
+          errorMessage="패스워드를 입력하세요."
+        />
       </div>
       <Button type="submit">Sign In</Button>
       <p>
