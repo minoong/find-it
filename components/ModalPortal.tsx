@@ -44,7 +44,7 @@ const ModalPortal: React.FC<IProps> = ({ children, closePortal }) => {
     return createPortal(
       <ModalPortalBlock>
         <div className="modal-background" role="presentation" onClick={closePortal} />
-        {children}
+        zzz
       </ModalPortalBlock>,
       ref.current,
     );

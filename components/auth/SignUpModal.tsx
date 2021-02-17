@@ -14,6 +14,7 @@ import { signUpAPI } from '../../lib/api/auth';
 import { userActions } from '../../store/user';
 import validationModeHook from '../../hooks/useValidationMode';
 import PasswordWarning from './PasswordWarning';
+import { authActions } from '../../store/auth';
 
 const SignUpModalBlock = styled.form`
   display: flex;
@@ -173,6 +174,10 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
     return getDays(range);
   }, [range]);
 
+  const moveToSignIn = () => {
+    dispatch(authActions.setAuthMode('login'));
+  };
+
   const onSubmitSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -192,8 +197,6 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         password,
         birthday: new Date(`${birthday.year}-${birthday.month}-${birthday.day}`).toUTCString(),
       });
-
-      console.log(data);
 
       dispatch(userActions.setLoggedUser(data));
       closeModal();
@@ -220,7 +223,6 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
         <CloseXIcon className="modal-close-icon" onClick={closeModal} />
       </div>
       <div className="input-wrapper">
-        <span className="awsome_input_border" />
         <Input
           placeholder="이메일"
           type="email"
@@ -307,11 +309,11 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           />
         </div>
       </div>
-      <Button type="submit">가입하기</Button>
+      <Button type="submit">Sign Up</Button>
       <p>
         이미 find-it 계정이 있나요?
-        <span className="sign-up-modal-set-login" role="presentation" onClick={() => {}}>
-          로그인
+        <span className="sign-up-modal-set-login" role="presentation" onClick={moveToSignIn}>
+          Sign In
         </span>
       </p>
     </SignUpModalBlock>

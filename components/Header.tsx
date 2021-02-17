@@ -1,13 +1,16 @@
 /* eslint-disable no-use-before-define */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Link from 'next/link';
 import palette from '../styles/palette';
-import SignUpModal from './auth/SignUpModal';
+import AuthModal from './auth/AuthModal';
 import useModal from '../hooks/useModal';
 import user from '../lib/data/user';
 import { useSelector } from '../store';
 import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
+import { authActions } from '../store/auth';
+import SignUpModal from './auth/SignUpModal';
 
 const HeaderBlock = styled.div`
   position: sticky;
@@ -96,6 +99,7 @@ const HeaderBlock = styled.div`
 `;
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
   const { openModal, ModalPortal, closeModal } = useModal();
   const user = useSelector((state) => state.user);
   return (
@@ -108,22 +112,43 @@ const Header: React.FC = () => {
         </Link>
         {!user.isLogged && (
           <div className="header-auth-buttons">
-            <button type="button" className="header-sign-up-button" onClick={openModal}>
+            <button
+              type="button"
+              className="header-sign-up-button"
+              onClick={() => {
+                dispatch(authActions.setAuthMode('signup'));
+                openModal();
+              }}
+            >
               sign
             </button>
-            <button type="button" className="header-login-button">
+            <button
+              type="button"
+              className="header-login-button"
+              onClick={() => {
+                dispatch(authActions.setAuthMode('login'));
+                openModal();
+              }}
+            >
               login
             </button>
           </div>
         )}
         {user.isLogged && (
-          <button className="header-user-profile" type="button">
+          <button
+            className="header-user-profile"
+            type="button"
+            onClick={() => {
+              dispatch(authActions.setAuthMode('login'));
+              openModal();
+            }}
+          >
             <HamburgerIcon />
             <img src={user.profileImage} className="header-user-profile-image" alt="" />
           </button>
         )}
         <ModalPortal>
-          <SignUpModal closeModal={closeModal} />
+          <AuthModal closeModal={closeModal} />
         </ModalPortal>
       </HeaderBlock>
     </>
