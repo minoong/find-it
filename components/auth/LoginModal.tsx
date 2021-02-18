@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import palette from '../../styles/palette';
@@ -11,6 +11,7 @@ import Button from '../common/Button';
 import { authActions } from '../../store/auth';
 import { signInAPI } from '../../lib/api/auth';
 import validationModeHook from '../../hooks/useValidationMode';
+import { userActions } from '../../store/user';
 
 const LoginModalBlock = styled.form`
   display: flex;
@@ -85,6 +86,12 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
   });
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    return () => {
+      setValidationMode(false);
+    };
+  }, []);
+
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm({
       ...form,
@@ -110,6 +117,9 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
     try {
       const { data } = await signInAPI(body);
       console.log(data);
+
+      dispatch(userActions.setLoggedUser(data));
+      closeModal();
     } catch (err) {
       console.error(err);
     }

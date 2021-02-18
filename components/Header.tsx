@@ -135,14 +135,7 @@ const Header: React.FC = () => {
           </div>
         )}
         {user.isLogged && (
-          <button
-            className="header-user-profile"
-            type="button"
-            onClick={() => {
-              dispatch(authActions.setAuthMode('login'));
-              openModal();
-            }}
-          >
+          <button className="header-user-profile" type="button" onClick={() => {}}>
             <HamburgerIcon />
             <img src={user.profileImage} className="header-user-profile-image" alt="" />
           </button>
