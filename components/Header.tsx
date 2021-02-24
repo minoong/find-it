@@ -4,12 +4,16 @@ import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import Link from 'next/link';
 import OutsideClickHandler from 'react-outside-click-handler';
+import HeaderAuths from './HeaderAuths';
 import palette from '../styles/palette';
 import AuthModal from './auth/AuthModal';
 import useModal from '../hooks/useModal';
 import { useSelector } from '../store';
 import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
 import { authActions } from '../store/auth';
+import { logoutAPI } from '../lib/api/auth';
+import { userActions } from '../store/user';
+import HeaderUserProfile from './HeaderUserProfile';
 
 const HeaderBlock = styled.div`
   position: sticky;
@@ -133,10 +137,7 @@ const HeaderBlock = styled.div`
 `;
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch();
-  const { openModal, ModalPortal, closeModal } = useModal();
   const user = useSelector((state) => state.user);
-  const [isUserMenuOpend, setIsuserMenuOpend] = useState(false);
   return (
     <>
       <HeaderBlock>
@@ -145,64 +146,8 @@ const Header: React.FC = () => {
             <span className="header-logo">find-it</span>
           </a>
         </Link>
-        {!user.isLogged && (
-          <div className="header-auth-buttons">
-            <button
-              type="button"
-              className="header-sign-up-button"
-              onClick={() => {
-                dispatch(authActions.setAuthMode('signup'));
-                openModal();
-              }}
-            >
-              sign
-            </button>
-            <button
-              type="button"
-              className="header-login-button"
-              onClick={() => {
-                dispatch(authActions.setAuthMode('login'));
-                openModal();
-              }}
-            >
-              login
-            </button>
-          </div>
-        )}
-        {user.isLogged && (
-          <OutsideClickHandler
-            onOutsideClick={() => {
-              if (isUserMenuOpend) setIsuserMenuOpend(false);
-            }}
-          >
-            <button className="header-user-profile" type="button" onClick={() => setIsuserMenuOpend(!isUserMenuOpend)}>
-              <HamburgerIcon />
-              <img src={user.profileImage} className="header-user-profile-image" alt="" />
-            </button>
-            {isUserMenuOpend && (
-              <ul className="header-usermenu">
-                <li>호스텔 관리</li>
-                <Link href="/room/register/building">
-                  <a
-                    role="presentation"
-                    onClick={() => {
-                      setIsuserMenuOpend(false);
-                    }}
-                  >
-                    <li>호스텔 등록</li>
-                  </a>
-                </Link>
-                <div className="header-usermenu-divider" />
-                <li role="presentation" onClick={() => {}}>
-                  로그아웃
-                </li>
-              </ul>
-            )}
-          </OutsideClickHandler>
-        )}
-        <ModalPortal>
-          <AuthModal closeModal={closeModal} />
-        </ModalPortal>
+        {!user.isLogged && <HeaderAuths />}
+        {user.isLogged && <HeaderUserProfile />}
       </HeaderBlock>
     </>
   );
