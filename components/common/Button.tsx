@@ -43,4 +43,4 @@ const Button: React.FC<IProps> = ({ children, ...props }) => {
   );
 };
 
-export default Button;
+export default React.memo(Button);
