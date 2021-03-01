@@ -143,7 +143,7 @@ const Selector: React.FC<IProps> = ({
           ))}
         </select>
       </label>
-      {useValidation && validationMode && !!isValid && (
+      {useValidation && validationMode && !isValid && (
         <div className="selector-warning">
           <WarningIcon />
           <p>{errorMessage}</p>

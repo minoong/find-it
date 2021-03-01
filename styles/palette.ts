@@ -1,4 +1,4 @@
-export default {
+const palette: { [key: string]: any } = {
   cardinal: '#a41850',
   davidson_orange: '#c13515',
   tawny: '#d93900',
@@ -25,3 +25,5 @@ export default {
   dark_cyan: '#008489',
   green: '#008A05',
 };
+
+export default palette;
