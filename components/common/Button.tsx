@@ -1,6 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
+
+interface StyledButtonProps {}
+
+const getButtonColor = (color: string) => {
+  return css`
+    background-color: ${palette[color]};
+  `;
+};
 
 const ButtonBlock = styled.div`
   display: flex;
@@ -12,7 +20,7 @@ const ButtonBlock = styled.div`
   }
 `;
 
-const CustomButtonBlock = styled.button`
+const CustomButtonBlock = styled.button<StyledButtonProps>`
   width: 100%;
   height: 2rem;
   border: 0;
@@ -24,6 +32,8 @@ const CustomButtonBlock = styled.button`
   font-weight: bold;
   outline: none;
   cursor: pointer;
+
+  ${(props) => getButtonColor(props.color || '')}
 
   :hover {
     background-color: ${palette.davidson_orange};
