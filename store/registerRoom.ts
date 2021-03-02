@@ -1,10 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { BedType } from '../types/room';
 
 type RegisterRoomState = {
   largeBuildingType: string | null;
   buildingType: string | null;
   roomType: string | null;
   isSetUpForGuest: boolean | null;
+  maximumGuestCount: number;
+  bedroomCount: number;
+  bedCount: number;
+  bedList: { id: number; bes: { type: BedType; count: number }[] }[];
+  publicBedList: { type: BedType; count: number }[];
 };
 
 const initialState: RegisterRoomState = {
@@ -12,6 +18,11 @@ const initialState: RegisterRoomState = {
   buildingType: null,
   roomType: null,
   isSetUpForGuest: null,
+  maximumGuestCount: 1,
+  bedroomCount: 0,
+  bedCount: 1,
+  bedList: [],
+  publicBedList: [],
 };
 
 const registerRoom = createSlice({
@@ -38,6 +49,14 @@ const registerRoom = createSlice({
     },
     setIsSetUpForGuest(state, action: PayloadAction<boolean>) {
       state.isSetUpForGuest = action.payload;
+      return state;
+    },
+    setMaximumGuestCount(state, action: PayloadAction<number>) {
+      state.maximumGuestCount = action.payload;
+      return state;
+    },
+    setBedroomCount(state, action: PayloadAction<number>) {
+      state.bedroomCount = action.payload;
       return state;
     },
   },
