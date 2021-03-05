@@ -9,7 +9,7 @@ type RegisterRoomState = {
   maximumGuestCount: number;
   bedroomCount: number;
   bedCount: number;
-  bedList: { id: number; bes: { type: BedType; count: number }[] }[];
+  bedList: { id: number; beds: { type: BedType; count: number }[] }[];
   publicBedList: { type: BedType; count: number }[];
 };
 
@@ -56,7 +56,13 @@ const registerRoom = createSlice({
       return state;
     },
     setBedroomCount(state, action: PayloadAction<number>) {
-      state.bedroomCount = action.payload;
+      const bedroomCount = action.payload;
+      state.bedroomCount = bedroomCount;
+      state.bedList = Array.from(Array(bedroomCount), (_, index) => ({ id: index + 1, beds: [] }));
+      return state;
+    },
+    setBedCount(state, action: PayloadAction<number>) {
+      state.bedCount = action.payload;
       return state;
     },
   },
