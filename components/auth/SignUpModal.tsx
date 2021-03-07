@@ -63,7 +63,7 @@ const SignUpModalBlock = styled.form`
   .sign-up-birthday-selectors {
     display: flex;
     gap: 0.5rem;
-
+    margin-bottom: 2rem;
     .item {
       flex-basis: 100%;
     }
@@ -293,11 +293,19 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
             options={monthList}
             disabledOptions={['월']}
             defaultValue="월"
+            isValid={!!birthday.month}
             onChange={onChageSelect}
           />
         </div>
         <div className="item">
-          <Selector name="day" options={dayList} disabledOptions={['일']} defaultValue="일" onChange={onChageSelect} />
+          <Selector
+            name="day"
+            options={dayList}
+            disabledOptions={['일']}
+            defaultValue="일"
+            isValid={!!birthday.day}
+            onChange={onChageSelect}
+          />
         </div>
         <div className="item">
           <Selector
@@ -305,6 +313,7 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
             options={yearList}
             disabledOptions={['년']}
             defaultValue="년"
+            isValid={!!birthday.year}
             onChange={onChageSelect}
           />
         </div>

@@ -79,7 +79,7 @@ const Input: React.FC<IProps> = ({ icon, isValid = false, useValidation = true, 
     // eslint-disable-next-line max-len
     <InputBlock
       hasIcon={!!icon}
-      isValid={isValid}
+      isValid={!!isValid}
       useValidation={(validationMode as boolean) && (useValidation as boolean)}
     >
       <input {...props} />

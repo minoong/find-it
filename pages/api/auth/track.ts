@@ -15,7 +15,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       const userId = jwt.verify(accessToken, process.env.JWT_SECRET!);
       const user = Data.user.findUser({ id: Number(userId) }) as StoredUserType;
-      console.log(userId, user);
       const pureUser: Partial<Pick<StoredUserType, 'password'>> = user;
 
       delete pureUser.password;

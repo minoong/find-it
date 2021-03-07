@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { BedType } from '../types/room';
 
@@ -11,6 +12,8 @@ type RegisterRoomState = {
   bedCount: number;
   bedList: { id: number; beds: { type: BedType; count: number }[] }[];
   publicBedList: { type: BedType; count: number }[];
+  bathroomCount: number;
+  bathroomType: 'private' | 'public' | null;
 };
 
 const initialState: RegisterRoomState = {
@@ -23,6 +26,8 @@ const initialState: RegisterRoomState = {
   bedCount: 1,
   bedList: [],
   publicBedList: [],
+  bathroomCount: 1,
+  bathroomType: null,
 };
 
 const registerRoom = createSlice({
@@ -63,6 +68,52 @@ const registerRoom = createSlice({
     },
     setBedCount(state, action: PayloadAction<number>) {
       state.bedCount = action.payload;
+      return state;
+    },
+    setBedTypeCount(state, action: PayloadAction<{ bedroomId: number; type: BedType; count: number }>) {
+      const { bedroomId, type, count } = action.payload;
+      const bedroom = state.bedList[bedroomId - 1];
+      const prevBeds = bedroom.beds;
+      const index = prevBeds.findIndex((bed) => bed.type === type);
+
+      if (index === -1) {
+        state.bedList[bedroomId - 1].beds = [...prevBeds, { type, count }];
+        return state;
+      }
+
+      if (count === 0) {
+        state.bedList[bedroomId - 1].beds.splice(index, 1);
+      } else {
+        state.bedList[bedroomId - 1].beds[index].count = count;
+      }
+
+      return state;
+    },
+    setPublicBedTypeCount(state, action: PayloadAction<{ type: BedType; count: number }>) {
+      const { type, count } = action.payload;
+
+      const index = state.publicBedList.findIndex((bed) => bed.type === type);
+
+      if (index === -1) {
+        state.publicBedList = [...state.publicBedList, { type, count }];
+
+        return state;
+      }
+
+      if (count === 0) {
+        state.publicBedList.splice(index, 1);
+      } else {
+        state.publicBedList[index].count = count;
+      }
+
+      return state;
+    },
+    setBathroomCount(state, action: PayloadAction<number>) {
+      state.bathroomCount = action.payload;
+      return state;
+    },
+    setBathroomType(state, action: PayloadAction<'private' | 'public'>) {
+      state.bathroomType = action.payload;
       return state;
     },
   },
