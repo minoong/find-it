@@ -1,18 +1,10 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import OutsideClickHandler from 'react-outside-click-handler';
 import HeaderAuths from './HeaderAuths';
 import palette from '../styles/palette';
-import AuthModal from './auth/AuthModal';
-import useModal from '../hooks/useModal';
 import { useSelector } from '../store';
-import HamburgerIcon from '../public/static/svg/header/hamburger.svg';
-import { authActions } from '../store/auth';
-import { logoutAPI } from '../lib/api/auth';
-import { userActions } from '../store/user';
 import HeaderUserProfile from './HeaderUserProfile';
 
 const HeaderBlock = styled.div`

@@ -54,8 +54,8 @@ const roomTypeRadioOptions = [
   },
 ];
 const isSetUpForGuestOptions = [
-  { label: '예, 게스트용으로 따로 마련된 숙소입니다.', value: true },
-  { label: '아니요, 제 개인 물건이 숙소에 있습니다.', value: false },
+  { label: '예, 게스트용으로 따로 마련된 숙소입니다.', value: 'true' },
+  { label: '아니요, 제 개인 물건이 숙소에 있습니다.', value: 'false' },
 ];
 
 const RegisterRoomBuilding: React.FC = () => {
@@ -113,7 +113,7 @@ const RegisterRoomBuilding: React.FC = () => {
 
   // form 검증
   const isValid = useMemo(() => {
-    if (!largeBuildingType || !buildingType || !roomType || !isSetUpForGuest) {
+    if (!largeBuildingType || !buildingType || !roomType || isSetUpForGuest === null) {
       return false;
     }
     return true;
@@ -168,7 +168,7 @@ const RegisterRoomBuilding: React.FC = () => {
           options={isSetUpForGuestOptions}
         />
       </div>
-      <RegisterRoomFooter isValid={false} prevHref="/" nextHref="/room/register/bedrooms" />
+      <RegisterRoomFooter isValid={isValid} prevHref="/" nextHref="/room/register/bedrooms" />
     </RegisterRoomBuildingBlock>
   );
 };

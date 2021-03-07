@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import palette from '../../styles/palette';
 import MailIcon from '../../public/static/svg/auth/mail.svg';
-import OpenedEyeIcon from '../../public/static/svg/auth/opened_eye.svg';
 import ClosedEyeIcon from '../../public/static/svg/auth/closed_eye.svg';
 import CloseXIcon from '../../public/static/svg/modal/modal_colose_x_icon.svg';
 import Input from '../common/Input';
