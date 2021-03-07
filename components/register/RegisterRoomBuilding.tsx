@@ -18,7 +18,7 @@ const RegisterRoomBuildingBlock = styled.div`
   }
   h3 {
     font-weight: bold;
-    color: ${palette.gray_48};
+    color: ${palette.gray_76};
     margin-bottom: 0.375rem;
   }
   .register-room-building-selector-wrapper {

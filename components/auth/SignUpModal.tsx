@@ -63,7 +63,7 @@ const SignUpModalBlock = styled.form`
   .sign-up-birthday-selectors {
     display: flex;
     gap: 0.5rem;
-
+    margin-bottom: 2rem;
     .item {
       flex-basis: 100%;
     }
