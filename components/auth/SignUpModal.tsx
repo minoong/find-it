@@ -318,7 +318,9 @@ const SignUpModal: React.FC<IProps> = ({ closeModal }) => {
           />
         </div>
       </div>
-      <Button type="submit">Sign Up</Button>
+      <Button type="submit" color="bittersweet">
+        Sign Up
+      </Button>
       <p>
         이미 find-it 계정이 있나요?
         <span className="sign-up-modal-set-login" role="presentation" onClick={moveToSignIn}>

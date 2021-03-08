@@ -11,6 +11,12 @@ type InputContainerProps = {
 };
 
 const InputBlock = styled.div<InputContainerProps>`
+  label {
+    span {
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+  }
   input {
     width: 100%;
     height: 2.875rem;
@@ -64,6 +70,7 @@ const InputBlock = styled.div<InputContainerProps>`
 `;
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
   // eslint-disable-next-line no-undef
   icon?: JSX.Element;
   isValid?: boolean;
@@ -73,7 +80,7 @@ interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 // eslint-disable-next-line max-len
-const Input: React.FC<IProps> = ({ icon, isValid = false, useValidation = true, errorMessage, ...props }) => {
+const Input: React.FC<IProps> = ({ label, icon, isValid = false, useValidation = true, errorMessage, ...props }) => {
   const validationMode = useSelector((state: RootState) => state.common.validationMode);
   return (
     // eslint-disable-next-line max-len
@@ -82,7 +89,13 @@ const Input: React.FC<IProps> = ({ icon, isValid = false, useValidation = true, 
       isValid={!!isValid}
       useValidation={(validationMode as boolean) && (useValidation as boolean)}
     >
-      <input {...props} />
+      {label && (
+        <label>
+          <span>{label}</span>
+          <input {...props} />
+        </label>
+      )}
+      {!label && <input {...props} />}
       <div className="input-icon-wrapper">{icon}</div>
       {useValidation && validationMode && !isValid && errorMessage && (
         <div className="input-error-message">{errorMessage}</div>
