@@ -1,70 +1,117 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../styles/palette';
 
-interface StyledButtonProps {}
-
-const getButtonColor = (color: string) => {
-  return css`
-    background-color: ${palette[color]};
-  `;
+const getButtonColor = (color: string, colorReverse: boolean) => {
+  if (colorReverse) {
+    switch (color) {
+      case 'dark_cyan':
+        return css`
+          border: 2px solid ${palette.dark_cyan};
+          color: ${palette.dark_cyan};
+          background-color: white;
+        `;
+      default:
+        return css`
+          border: 2px solid ${palette.black};
+          color: ${palette.black};
+          background-color: white;
+        `;
+    }
+  }
+  switch (color) {
+    case 'dark_cyan':
+      return css`
+        background-color: ${palette.dark_cyan};
+        color: white;
+      `;
+    case 'bittersweet':
+      return css`
+        background-color: ${palette.bittersweet};
+        color: white;
+      `;
+    case 'amaranth':
+      return css`
+        background-color: ${palette.amaranth};
+        color: white;
+      `;
+    default:
+      return css`
+        background-color: white;
+        color: ${palette.black};
+        border: 1px solid ${palette.gray_c4};
+      `;
+  }
 };
 
-const normalButtonStyle = css`
+//* 버튼 크기 구하기
+const getButtonSize = (size: 'small' | 'medium') => {
+  switch (size) {
+    case 'medium':
+      return css`
+        height: 48px;
+      `;
+    case 'small':
+      return css`
+        font-size: 14px;
+        height: 36px;
+      `;
+    default:
+      return '';
+  }
+};
+
+interface StyledButtonProps {
+  width: string | undefined;
+  colorReverse: boolean;
+  size: 'small' | 'medium';
+}
+
+const Container = styled.button<StyledButtonProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  height: 3rem;
-  padding: 0 0.9375rem;
+  height: 48px;
+  padding: 0 15px;
   border: 0;
-  border-radius: 0.25rem;
-  background-color: ${palette.bittersweet};
-  color: white;
-  font-size: 1rem;
-  font-weight: bold;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
   outline: none;
   cursor: pointer;
-
-  transition: all 0.3s;
-
-  :hover {
-    background-color: ${palette.davidson_orange};
+  width: ${(props) => props.width};
+  ${(props) => getButtonColor(props.color || '', props.colorReverse)};
+  ${(props) => getButtonSize(props.size)}
+  svg {
+    margin-right: 12px;
   }
-`;
-
-const registerButtonStyle = css`
-  width: 10.0625rem;
-  height: 2.8125rem;
-  border: 1px solid ${palette.gray_c4};
-  background-color: white;
-  border-radius: 0.25rem;
-  color: ${palette.gray_48};
-  font-size: 1.125rem;
-  font-weight: bold;
-  outline: none;
-  cursor: pointer;
-
-  transition: all 0.3s;
-
-  :hover {
-    background-color: ${palette.gray_f7};
-  }
-`;
-
-const ButtonBlock = styled.button<{ styleType: 'normal' | 'register' }>`
-  ${({ styleType }) => (styleType === 'register' ? registerButtonStyle : normalButtonStyle)}
-  ${(props) => getButtonColor(props.color || '')}
 `;
 
 interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  color?: 'dark_cyan' | 'white';
-  styleType?: 'normal' | 'register';
+  color?: 'dark_cyan' | 'white' | 'bittersweet' | 'amaranth';
+  size?: 'small' | 'medium';
+  width?: string;
+  colorReverse?: boolean;
+  icon?: JSX.Element;
 }
 
-const Button: React.FC<IProps> = ({ children, color, styleType = 'normal', ...props }) => {
+const Button: React.FC<IProps> = ({
+  children,
+  color,
+  size = 'medium',
+  width,
+  colorReverse = false,
+  icon,
+  ...props
+}) => {
   return (
-    <ButtonBlock {...props} color={color} styleType={styleType}>
+    <Container {...props} color={color} size={size} width={width} colorReverse={colorReverse}>
+      {icon}
       {children}
-    </ButtonBlock>
+    </Container>
   );
 };
 

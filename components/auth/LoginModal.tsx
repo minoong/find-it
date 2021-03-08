@@ -151,7 +151,9 @@ const LoginModal: React.FC<IProps> = ({ closeModal }) => {
           errorMessage="패스워드를 입력하세요."
         />
       </div>
-      <Button type="submit">Sign In</Button>
+      <Button type="submit" color="bittersweet">
+        Sign In
+      </Button>
       <p>
         find-it 계정이 없으신가요?
         <span className="sign-up-modal-set-login" role="presentation" onClick={moveToSignUp}>

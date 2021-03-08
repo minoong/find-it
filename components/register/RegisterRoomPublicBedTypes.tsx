@@ -84,7 +84,7 @@ const RegisterRoomPublicBedTypes: React.FC = () => {
           <p className="register-bed-type-bedroom-counts">침대 {totalBedsCount}개</p>
           <p className="register-room-bed-type-bedroom-count">{bedsTxt}</p>
         </div>
-        <Button onClick={() => setOpened(!opened)} styleType="register" color="white">
+        <Button onClick={() => setOpened(!opened)} width="10rem" color="white">
           {opened && '완료'}
           {!opened && (totalBedsCount === 0 ? '침대 추가하기' : '침대 수정하기')}
         </Button>
