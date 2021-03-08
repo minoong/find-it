@@ -1,3 +1,4 @@
+/* eslint-disable prefer-template */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
@@ -9,6 +10,8 @@ import Selector from '../common/Selector';
 import Input from '../common/Input';
 import { useSelector } from '../../store';
 import { registerRoomActions } from '../../store/registerRoom';
+import { getLocationInfoAPI } from '../../lib/api/map';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomLocationBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
@@ -98,14 +101,44 @@ const RegisterRoomLocation: React.FC = () => {
   const onChangePostcode = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setPostcode(e.target.value));
   };
+
+  const onSuccessGetLocation = async ({ coords }: any) => {
+    try {
+      const { data: currentLocation } = await getLocationInfoAPI({
+        latitude: coords.latitude,
+        longitude: coords.longitude,
+      });
+
+      dispatch(registerRoomActions.setCountry(currentLocation.country));
+      dispatch(registerRoomActions.setCity(currentLocation.city));
+      dispatch(registerRoomActions.setDistrict(currentLocation.district));
+      dispatch(registerRoomActions.setStreetAddress(currentLocation.streetAddress));
+      dispatch(registerRoomActions.setPostcode(currentLocation.postcode));
+      dispatch(registerRoomActions.setLastitude(currentLocation.latitude));
+      dispatch(registerRoomActions.setLongitude(currentLocation.longitude));
+    } catch (error) {
+      console.error('Exception ' + error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onClickGetCurrentLocation = () => {
+    setLoading(true);
+    navigator.geolocation.getCurrentPosition(onSuccessGetLocation, (e) => {
+      console.log(e);
+      alert(e.message);
+    });
+  };
+
   return (
     <RegisterRoomLocationBlock>
       <h2>숙소의 위치를 알려주세요.</h2>
       <h3>Step 4</h3>
       <p className="register-room-step-info">정확한 숙소 주소는 게스트가 예약을 완료한 후에만 공개합니다.</p>
       <div className="register-room-location-button-wrapper">
-        <Button color="dark_cyan" colorReverse icon={<NavigationIcon />}>
-          현재 위치 사용
+        <Button color="dark_cyan" colorReverse icon={<NavigationIcon />} onClick={onClickGetCurrentLocation}>
+          {loading ? '불러오는 중...' : '현재 위치 사용'}
         </Button>
       </div>
       <div className="register-room-location-country-selector-wrapper">
@@ -132,6 +165,7 @@ const RegisterRoomLocation: React.FC = () => {
       <div className="register-room-location-postcode">
         <Input label="우편번호" value={postcode} onChange={onChangePostcode} />
       </div>
+      <RegisterRoomFooter prevHref="/room/register/bathroom" nextHref="/room/register/geometry" />
     </RegisterRoomLocationBlock>
   );
 };
