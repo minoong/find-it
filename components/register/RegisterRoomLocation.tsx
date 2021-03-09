@@ -69,35 +69,28 @@ const RegisterRoomLocation: React.FC = () => {
   const detailAddress = useSelector((state) => state.registerRoom.detailAddress);
   const postcode = useSelector((state) => state.registerRoom.postcode);
 
-  //* 현재 주소 불러오기 로딩
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
 
-  //* 나라 변경시
   const onChangeCountry = (event: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(registerRoomActions.setCountry(event.target.value));
   };
 
-  //* 시/도 변경시
   const onChangeCity = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setCity(event.target.value));
   };
 
-  //* 시/군/구 변경시
   const onChangeDistrict = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setDistrict(event.target.value));
   };
 
-  //* 도로명주소 변경시
   const onChangeStreetAdress = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setStreetAddress(event.target.value));
   };
-  //*동호수 변경시
   const onChangeDetailAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setDetailAddress(event.target.value));
   };
-  //*우편번호 변경시
   const onChangePostcode = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(registerRoomActions.setPostcode(e.target.value));
   };
