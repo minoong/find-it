@@ -20,7 +20,7 @@ type RegisterRoomState = {
   streetAddress: string;
   detailAddress: string;
   postcode: string;
-  lastitude: number;
+  latitude: number;
   longitude: number;
 };
 
@@ -42,7 +42,7 @@ const initialState: RegisterRoomState = {
   streetAddress: '',
   detailAddress: '',
   postcode: '',
-  lastitude: 0,
+  latitude: 0,
   longitude: 0,
 };
 
@@ -156,8 +156,8 @@ const registerRoom = createSlice({
       state.postcode = action.payload;
       return state;
     },
-    setLastitude(state, action: PayloadAction<number>) {
-      state.lastitude = action.payload;
+    setLatitude(state, action: PayloadAction<number>) {
+      state.latitude = action.payload;
       return state;
     },
     setLongitude(state, action: PayloadAction<number>) {
