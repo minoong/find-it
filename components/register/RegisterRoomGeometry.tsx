@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import throttle from 'lodash/throttle';
 import { useSelector } from '../../store';
 import palette from '../../styles/palette';
-import { useDispatch } from 'react-redux';
 import { registerRoomActions } from '../../store/registerRoom';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
