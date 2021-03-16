@@ -6,6 +6,7 @@ import { useSelector } from '../../store';
 import { registerRoomActions } from '../../store/registerRoom';
 import palette from '../../styles/palette';
 import CheckboxGroup from '../common/CheckboxGroup';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomAmentitiesBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
@@ -42,6 +43,7 @@ const RegisterRoomAmentities: React.FC = () => {
       <div className="register-room-amentities-checkbox-group-wrapper">
         <CheckboxGroup value={amentities} onChange={onChangeAmentities} options={amentityList} />
       </div>
+      <RegisterRoomFooter prevHref="/room/register/geometry" nextHref="/room/register/conveniences" />
     </RegisterRoomAmentitiesBlock>
   );
 };

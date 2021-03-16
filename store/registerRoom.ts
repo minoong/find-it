@@ -23,6 +23,7 @@ type RegisterRoomState = {
   latitude: number;
   longitude: number;
   amentities: string[];
+  conveniences: string[];
 };
 
 const initialState: RegisterRoomState = {
@@ -46,6 +47,7 @@ const initialState: RegisterRoomState = {
   latitude: 0,
   longitude: 0,
   amentities: [],
+  conveniences: [],
 };
 
 const registerRoom = createSlice({
@@ -168,6 +170,9 @@ const registerRoom = createSlice({
     },
     setAmentities(state, action: PayloadAction<string[]>) {
       state.amentities = action.payload;
+    },
+    setConveniences(state, action: PayloadAction<string[]>) {
+      state.conveniences = action.payload;
     },
   },
 });

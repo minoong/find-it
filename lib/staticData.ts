@@ -379,4 +379,4 @@ export const amentityList = [
 ];
 
 //* 편의 공간
-export const convinienceList = ['주방', '세탁 공간 - 세탁기', '주차', '헬스장', '수영장', '자쿠지'];
+export const convenienceList = ['주방', '세탁 공간 - 세탁기', '주차', '헬스장', '수영장', '자쿠지'];
