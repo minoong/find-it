@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import TrashIcon from '../../public/static/svg/register/photo/trash_can.svg';
 import PencilIcon from '../../public/static/svg/register/photo/pencil.svg';
 import GrayPlusIcon from '../../public/static/svg/register/photo/gray_plus.svg';
 import palette from '../../styles/palette';
-import { useDispatch } from 'react-redux';
 import { uploadFileAPI } from '../../lib/api/file';
 import { registerRoomActions } from '../../store/registerRoom';
 
@@ -114,7 +114,7 @@ interface IProps {
 const RegisterRoomPhotoCardList: React.FC<IProps> = ({ photos }) => {
   const dispatch = useDispatch();
 
-  const addPhto = () => {
+  const addPhoto = () => {
     const el = document.createElement('input');
     el.type = 'file';
     el.accept = 'image/*';
@@ -134,6 +134,36 @@ const RegisterRoomPhotoCardList: React.FC<IProps> = ({ photos }) => {
 
     el.click();
   };
+
+  const editPhoto = (index: number) => {
+    const el = document.createElement('input');
+    el.type = 'file';
+    el.accept = 'image/*';
+    el.onchange = (event) => {
+      const { files } = event.target as HTMLInputElement;
+      if (files && files.length > 0) {
+        const file = files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+        uploadFileAPI(formData)
+          .then(({ data }) => {
+            const newPhotos = [...photos];
+            newPhotos[index] = data;
+            dispatch(registerRoomActions.setPhoto(newPhotos));
+          })
+          .catch((e) => console.error(e));
+      }
+    };
+
+    el.click();
+  };
+
+  const deletePhoto = (index: number) => {
+    const newPhotos = [...photos];
+    newPhotos.splice(index, 1);
+    dispatch(registerRoomActions.setPhoto(newPhotos));
+  };
+
   return (
     <RegisterRoomPhotoCardListBlock>
       {photos.map((photo, index) => (
@@ -142,10 +172,10 @@ const RegisterRoomPhotoCardList: React.FC<IProps> = ({ photos }) => {
             <li className="register-room-first-photo-wrapper">
               <img src={photo} alt="" />
               <div className="register-room-photo-interaction-buttons">
-                <button type="button" onClick={() => {}}>
+                <button type="button" onClick={() => deletePhoto(index)}>
                   <TrashIcon />
                 </button>
-                <button type="button" onClick={() => {}}>
+                <button type="button" onClick={() => editPhoto(index)}>
                   <PencilIcon />
                 </button>
               </div>
@@ -155,10 +185,10 @@ const RegisterRoomPhotoCardList: React.FC<IProps> = ({ photos }) => {
             <li className="register-room-photo-card">
               <img src={photo} alt="" />
               <div className="register-room-photo-interaction-buttons">
-                <button type="button" onClick={() => {}}>
+                <button type="button" onClick={() => deletePhoto(index)}>
                   <TrashIcon />
                 </button>
-                <button type="button" onClick={() => {}}>
+                <button type="button" onClick={() => editPhoto(index)}>
                   <PencilIcon />
                 </button>
               </div>
@@ -166,7 +196,7 @@ const RegisterRoomPhotoCardList: React.FC<IProps> = ({ photos }) => {
           )}
         </React.Fragment>
       ))}
-      <li className="register-room-photo-card" role="presentation" onClick={addPhto}>
+      <li className="register-room-photo-card" role="presentation" onClick={addPhoto}>
         <div className="register-room-add-more-photo-card">
           <GrayPlusIcon />
           추가하기

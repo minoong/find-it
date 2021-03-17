@@ -12,24 +12,10 @@ import { useSelector } from '../../store';
 import { registerRoomActions } from '../../store/registerRoom';
 import { getLocationInfoAPI } from '../../lib/api/map';
 import RegisterRoomFooter from './RegisterRoomFooter';
+import Step from '../common/Step';
 
 const RegisterRoomLocationBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
-  h2 {
-    font-size: 1.1875rem;
-    font-weight: bold;
-    margin-bottom: 3.5rem;
-  }
-  h3 {
-    font-weight: bold;
-    color: ${palette.gray_76};
-    margin-bottom: 0.375rem;
-  }
-  .register-room-step-info {
-    font-size: 0.875rem;
-    max-width: 25rem;
-    margin-bottom: 1.5rem;
-  }
   .register-room-location-button-wrapper {
     width: 11rem;
     margin-bottom: 1.5rem;
@@ -125,9 +111,9 @@ const RegisterRoomLocation: React.FC = () => {
 
   return (
     <RegisterRoomLocationBlock>
-      <h2>숙소의 위치를 알려주세요.</h2>
-      <h3>Step 4</h3>
-      <p className="register-room-step-info">정확한 숙소 주소는 게스트가 예약을 완료한 후에만 공개합니다.</p>
+      <Step title="숙소의 위치를 알려주세요." step={4}>
+        정확한 숙소 주소는 게스트가 예약을 완료한 후에만 공개합니다.
+      </Step>
       <div className="register-room-location-button-wrapper">
         <Button color="dark_cyan" colorReverse icon={<NavigationIcon />} onClick={onClickGetCurrentLocation}>
           {loading ? '불러오는 중...' : '현재 위치 사용'}

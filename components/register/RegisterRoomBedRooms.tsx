@@ -8,28 +8,12 @@ import { registerRoomActions } from '../../store/registerRoom';
 import palette from '../../styles/palette';
 import Counter from '../common/Counter';
 import Selector from '../common/Selector';
+import Step from '../common/Step';
 import RegisterRoomBedList from './RegisterRoomBedList';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomBedRoomsBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
-  h2 {
-    font-size: 1.1875rem;
-    font-weight: bold;
-    margin-bottom: 3.5rem;
-  }
-  h3 {
-    font-weight: bold;
-    color: ${palette.gray_76};
-    margin-bottom: 0.375rem;
-  }
-  .register-room-step-info {
-    font-size: 0.875rem;
-    max-width: 25rem;
-    margin-bottom: 1.5rem;
-    max-width: 25rem;
-    word-break: keep-all;
-  }
   .register-room-maximum-guest-count-wrapper {
     width: 20rem;
     margin-top: 1.5rem;
@@ -89,11 +73,10 @@ const RegisterRoomBedRooms: React.FC = () => {
 
   return (
     <RegisterRoomBedRoomsBlock>
-      <h2>숙소에 얼마나 많은 인원이 숙박할 수 있나요?</h2>
-      <h3>Step 2</h3>
-      <p className="room-register-room-step-info">
+      <Step title="숙소에 얼마나 많은 인원이 숙박할 수 있나요?" step={2}>
         모든 게스트가 편안하게 숙박할 수 있도록 침대가 충분히 구비되어 있는지 확인하세요.
-      </p>
+      </Step>
+
       <div className="register-room-maximum-guest-count-wrapper">
         <Counter label="최대 숙박 인원" value={maximumGuestCount} onChage={onChangeMaximumGuestCount} />
       </div>

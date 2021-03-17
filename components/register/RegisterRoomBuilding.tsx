@@ -7,6 +7,7 @@ import { registerRoomActions } from '../../store/registerRoom';
 import palette from '../../styles/palette';
 import RadioGroup from '../common/RadioGroup';
 import Selector from '../common/Selector';
+import Step from '../common/Step';
 import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomBuildingBlock = styled.div`
@@ -124,8 +125,8 @@ const RegisterRoomBuilding: React.FC = () => {
   };
   return (
     <RegisterRoomBuildingBlock>
-      <h2>숙소 유형은 무엇인가요?</h2>
-      <h3>Step 1</h3>
+      <Step title="숙소 유형은 무엇인가요?" step={1} />
+
       <div className="register-room-building-selector-wrapper">
         <Selector
           type="register"

@@ -25,6 +25,7 @@ type RegisterRoomState = {
   amentities: string[];
   conveniences: string[];
   photos: string[];
+  description: string;
 };
 
 const initialState: RegisterRoomState = {
@@ -56,6 +57,7 @@ const initialState: RegisterRoomState = {
     'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
     'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
   ],
+  description: '',
 };
 
 const registerRoom = createSlice({
@@ -184,6 +186,9 @@ const registerRoom = createSlice({
     },
     setPhoto(state, action: PayloadAction<string[]>) {
       state.photos = action.payload;
+    },
+    setDescription(state, action: PayloadAction<string>) {
+      state.description = action.payload;
     },
   },
 });

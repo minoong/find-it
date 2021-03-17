@@ -9,19 +9,11 @@ import Button from '../common/Button';
 import { uploadFileAPI } from '../../lib/api/file';
 import { registerRoomActions } from '../../store/registerRoom';
 import RegisterRoomPhotoCardList from './RegisterRoomPhotoCardList';
+import RegisterRoomFooter from './RegisterRoomFooter';
+import Step from '../common/Step';
 
 const RegisterRoomPhotoBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
-  h2 {
-    font-size: 1.1875rem;
-    font-weight: bold;
-    margin-bottom: 3.5rem;
-  }
-  h3 {
-    font-weight: bold;
-    color: ${palette.gray_76};
-    margin-bottom: 0.375rem;
-  }
   .register-room-step-info {
     font-size: 0.875rem;
     max-width: 27rem;
@@ -76,13 +68,11 @@ const RegisterRoomPhoto: React.FC = () => {
   };
   return (
     <RegisterRoomPhotoBlock>
-      <h2>숙소 사진 올리기</h2>
-      <h3>Step 7</h3>
-      <p className="register-room-step-info">
+      <Step title="sfds" step={8}>
         게스트가 사진을 보고 숙소의 느낌을 생생히 떠올려볼 수 있도록 해주세요.
         <br />
         우선 사진 1장을 업로드하고 숙소를 등록한 후에 추가할 수 있습니다.
-      </p>
+      </Step>
       {isEmpty(photos) && (
         <div className="register-room-upload-photo-wrapper">
           <>
@@ -94,6 +84,7 @@ const RegisterRoomPhoto: React.FC = () => {
         </div>
       )}
       {!isEmpty(photos) && <RegisterRoomPhotoCardList photos={photos} />}
+      <RegisterRoomFooter prevHref="/room/register/conveniences" nextHref="/room/register/description" />
     </RegisterRoomPhotoBlock>
   );
 };
