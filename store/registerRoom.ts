@@ -49,7 +49,13 @@ const initialState: RegisterRoomState = {
   longitude: 0,
   amentities: [],
   conveniences: [],
-  photos: [],
+  photos: [
+    'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
+    'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
+    'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
+    'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
+    'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
+  ],
 };
 
 const registerRoom = createSlice({

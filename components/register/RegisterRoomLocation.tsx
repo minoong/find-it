@@ -120,7 +120,6 @@ const RegisterRoomLocation: React.FC = () => {
     setLoading(true);
     navigator.geolocation.getCurrentPosition(onSuccessGetLocation, (e) => {
       console.log(e);
-      alert(e.message);
     });
   };
 
