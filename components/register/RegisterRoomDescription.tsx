@@ -5,6 +5,7 @@ import { useSelector } from '../../store';
 import { registerRoomActions } from '../../store/registerRoom';
 import Step from '../common/Step';
 import Textarea from '../common/Textarea';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomDescriptionBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
@@ -29,6 +30,7 @@ const RegisterRoomDescription: React.FC = () => {
       <div className="register-room-description-wrapper">
         <Textarea value={description} onChange={onChangeDescrption} />
       </div>
+      <RegisterRoomFooter prevHref="/room/register/photo" nextHref="/room/register/title" />
     </RegisterRoomDescriptionBlock>
   );
 };

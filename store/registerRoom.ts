@@ -26,6 +26,10 @@ type RegisterRoomState = {
   conveniences: string[];
   photos: string[];
   description: string;
+  title: string;
+  price: number;
+  startDate: string | null;
+  endDate: string | null;
 };
 
 const initialState: RegisterRoomState = {
@@ -58,6 +62,10 @@ const initialState: RegisterRoomState = {
     'https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg',
   ],
   description: '',
+  title: '',
+  price: 0,
+  startDate: null,
+  endDate: null,
 };
 
 const registerRoom = createSlice({
@@ -189,6 +197,18 @@ const registerRoom = createSlice({
     },
     setDescription(state, action: PayloadAction<string>) {
       state.description = action.payload;
+    },
+    setTitle(state, action: PayloadAction<string>) {
+      state.title = action.payload;
+    },
+    setPrice(state, action: PayloadAction<number>) {
+      state.price = action.payload;
+    },
+    setStartDate(state, action: PayloadAction<string | null>) {
+      state.startDate = action.payload;
+    },
+    setEndDate(state, action: PayloadAction<string | null>) {
+      state.endDate = action.payload;
     },
   },
 });
