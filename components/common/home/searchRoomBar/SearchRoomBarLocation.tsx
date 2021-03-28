@@ -5,6 +5,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { stringify } from 'uuid';
+import useDebounce from '../../../../hooks/useDebounce';
 import { searchPlacesAPI } from '../../../../lib/api/map';
 import { useSelector } from '../../../../store';
 import { searchRoomActions } from '../../../../store/searchRoom';
@@ -96,11 +97,16 @@ const SearchRoomBarLocation: React.FC = () => {
     }
   };
 
+  const searchKeyword = useDebounce(location, 150);
+
   useEffect(() => {
-    if (location) {
+    if (!searchKeyword) {
+      setResults([]);
+    }
+    if (searchKeyword) {
       searchPlaces();
     }
-  }, [location]);
+  }, [searchKeyword]);
   return (
     <SearchRoomBarLocationBlock onClick={onClickInput}>
       <OutsideClickHandler onOutsideClick={() => setPopupOpened(false)}>
