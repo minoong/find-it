@@ -15,7 +15,7 @@ const DatePicker: React.FC<ReactDatePickerProps> = ({ onChange, ...props }) => {
     <DatePickerBlock>
       <ReactDatePicker
         {...props}
-        dateFormat="yyyy년 MM월 dd일"
+        dateFormat="yyyy년 MM월 dd일(eee)"
         disabledKeyboardNavigation
         locale={ko}
         onChange={(date, event) => {
