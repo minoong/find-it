@@ -8,6 +8,7 @@ import DatePicker from '../common/DatePicker';
 import { useSelector } from '../../store';
 import { registerRoomActions } from '../../store/registerRoom';
 import palette from '../../styles/palette';
+import RegisterRoomFooter from './RegisterRoomFooter';
 
 const RegisterRoomDateBlock = styled.div`
   padding: 3.875rem 1.875rem 6.25rem;
@@ -95,6 +96,7 @@ const RegisterRoomDate: React.FC = () => {
           </label>
         </div>
       </div>
+      <RegisterRoomFooter prevHref="/room/register/price" nextHref="/room/register/checklist" />
     </RegisterRoomDateBlock>
   );
 };
