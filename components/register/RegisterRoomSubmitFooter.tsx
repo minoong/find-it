@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
+import { useRouter } from 'next/dist/client/router';
 import palette from '../../styles/palette';
 import BackArrowIcon from '../../public/static/svg/register/register_room_footer_back_arrow.svg';
 import Button from '../common/Button';
 import { useSelector } from '../../store';
-import { useRouter } from 'next/dist/client/router';
 import { registerRoomAPI } from '../../lib/api/room';
 
 const RegisterRoomSubmitFooterBlock = styled.footer`

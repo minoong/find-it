@@ -1,8 +1,10 @@
 /* eslint-disable no-use-before-define */
+import { NextPage } from 'next';
 import React from 'react';
+import Home from '../components/common/home/Home';
 
-const index: React.FC = () => {
-  return <>hello</>;
+const index: NextPage = () => {
+  return <Home />;
 };
 
 export default index;
