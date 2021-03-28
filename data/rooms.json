@@ -1,0 +1,41 @@
+[
+  {
+    "id": 1,
+    "largeBuildingType": "주택",
+    "buildingType": "주택",
+    "roomType": "entire",
+    "isSetUpForGuest": "true",
+    "maximumGuestCount": 1,
+    "bedroomCount": 1,
+    "bedCount": 1,
+    "bedList": [{ "id": 1, "beds": [] }],
+    "publicBedList": [],
+    "bathroomCount": 1,
+    "bathroomType": "public",
+    "country": "대한민국",
+    "city": "서울특별시",
+    "district": "관악구",
+    "streetAddress": "봉천동 １７８−３０９",
+    "detailAddress": "123",
+    "postcode": "151-050",
+    "latitude": 37.4715047,
+    "longitude": 126.9685279,
+    "amentities": ["조식, 커피, 차", "헤어 드라이어"],
+    "conveniences": ["주방"],
+    "photos": [
+      "https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg",
+      "https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg",
+      "https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg",
+      "https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg",
+      "https://lmw-bucket.s3.ap-northeast-2.amazonaws.com/PhotoView__ee0eb0c9-b499-46b9-958a-cae9c8724296.jpeg"
+    ],
+    "description": "wef",
+    "title": "awef",
+    "price": 12,
+    "startDate": "2021-03-30T00:00:00.000Z",
+    "endDate": "2021-04-04T00:00:00.000Z",
+    "hostId": 31,
+    "createdAt": "2021-03-28T05:00:19.956Z",
+    "updatedAt": "2021-03-28T05:00:19.956Z"
+  }
+]

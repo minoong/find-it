@@ -4,6 +4,9 @@ import Link from 'next/link';
 import palette from '../../styles/palette';
 import BackArrowIcon from '../../public/static/svg/register/register_room_footer_back_arrow.svg';
 import Button from '../common/Button';
+import { useSelector } from '../../store';
+import { useRouter } from 'next/dist/client/router';
+import { registerRoomAPI } from '../../lib/api/room';
 
 const RegisterRoomSubmitFooterBlock = styled.footer`
   position: fixed;
@@ -30,7 +33,23 @@ const RegisterRoomSubmitFooterBlock = styled.footer`
 `;
 
 const RegisterRoomSubmitFooter: React.FC = () => {
-  const onClickRegisterRoom = async () => {};
+  const userId = useSelector((state) => state.user.id);
+  const registerRoom = useSelector((state) => state.registerRoom);
+  const router = useRouter();
+
+  const onClickRegisterRoom = async () => {
+    const registerRoomBody = {
+      ...registerRoom,
+      hostId: userId,
+    };
+
+    try {
+      await registerRoomAPI(registerRoomBody);
+      router.push('/');
+    } catch (e) {
+      console.error(e);
+    }
+  };
   return (
     <RegisterRoomSubmitFooterBlock>
       <Link href="/room/register/date">
