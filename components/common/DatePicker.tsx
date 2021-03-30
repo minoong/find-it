@@ -3,7 +3,7 @@ import ReactDatePicker, { ReactDatePickerProps } from 'react-datepicker';
 import styled from 'styled-components';
 import ko from 'date-fns/locale/ko';
 import addHours from 'date-fns/addHours';
-import palette from '../../styles/palette';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const DatePickerBlock = styled.div`
   width: 100%;
