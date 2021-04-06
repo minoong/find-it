@@ -12,6 +12,7 @@ const getButtonColor = (color: string, colorReverse: boolean) => {
           color: ${palette.dark_cyan};
           background-color: white;
         `;
+
       default:
         return css`
           border: 2px solid ${palette.black};
