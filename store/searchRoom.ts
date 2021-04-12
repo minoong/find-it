@@ -32,7 +32,7 @@ const searchRoom = createSlice({
       state.childrenCount = action.payload;
     },
     setInfantsCount(state, action: PayloadAction<number>) {
-      state.childrenCount = action.payload;
+      state.infantsCount = action.payload;
     },
     setLatitude(state, action: PayloadAction<number>) {
       state.latitude = action.payload;

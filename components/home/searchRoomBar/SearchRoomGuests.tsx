@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import OutsideClickHandler from 'react-outside-click-handler';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { useSelector } from '../../../store';
+import { searchRoomActions } from '../../../store/searchRoom';
 import palette from '../../../styles/palette';
 import Counter from '../../common/Counter';
 import SearchRoomButton from './SearchRoomButton';
@@ -66,10 +68,22 @@ const SearchRoomCheckGuestsBlock = styled.div`
 `;
 
 const SearchRoomGuests: React.FC = () => {
+  const dispatch = useDispatch();
   const [popupOpened, setPopupOpened] = useState(false);
   const adultCount = useSelector((state) => state.searchRoom.adultCount);
   const childrenCount = useSelector((state) => state.searchRoom.childrenCount);
   const infantsCount = useSelector((state) => state.searchRoom.infantsCount);
+
+  const setAdultCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setAdultCount(value));
+  };
+  const setChildrenCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setChildrenCount(value));
+  };
+  const setInfantsCountDispatch = (value: number) => {
+    dispatch(searchRoomActions.setInfantsCount(value));
+  };
+
   return (
     <SearchRoomCheckGuestsBlock onClick={() => setPopupOpened(true)}>
       <OutsideClickHandler onOutsideClick={() => setPopupOpened(false)}>
@@ -84,13 +98,31 @@ const SearchRoomGuests: React.FC = () => {
         {popupOpened && (
           <div className="search-room-bar-guest-popup">
             <div className="search-room-bar-guest-counter-wrapper">
-              <Counter label="성인" description="만 13세 이상" minValue={1} value={adultCount} />
+              <Counter
+                label="성인"
+                description="만 13세 이상"
+                minValue={1}
+                value={adultCount}
+                onChage={(count) => setAdultCountDispatch(count)}
+              />
             </div>
             <div className="search-room-bar-guest-counter-wrapper">
-              <Counter label="어린이" description="2~12세" minValue={1} value={childrenCount} />
+              <Counter
+                label="어린이"
+                description="2~12세"
+                minValue={1}
+                value={childrenCount}
+                onChage={(count) => setChildrenCountDispatch(count)}
+              />
             </div>
             <div className="search-room-bar-guest-counter-wrapper">
-              <Counter label="유아" description="2세 미만" minValue={1} value={infantsCount} />
+              <Counter
+                label="유아"
+                description="2세 미만"
+                minValue={1}
+                value={infantsCount}
+                onChage={(count) => setInfantsCountDispatch(count)}
+              />
             </div>
           </div>
         )}
