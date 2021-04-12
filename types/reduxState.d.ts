@@ -1,4 +1,4 @@
-import { BedType } from './room';
+import { BedType, RoomType } from './room';
 import { UserType } from './user';
 
 export type UserState = UserType & {
@@ -48,4 +48,8 @@ export type SearchRoomState = {
   adultCount: number;
   childrenCount: number;
   infantsCount: number;
+};
+
+export type RoomState = {
+  rooms: RoomType[];
 };
