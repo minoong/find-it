@@ -4,6 +4,7 @@ import * as dateFns from 'date-fns';
 import { useSelector } from '../../../store';
 import palette from '../../../styles/palette';
 import MapIcon from '../../../public/static/svg/room/main/map.svg';
+import RoomList from './RoomList';
 
 const RoomMainBlock = styled.div`
   padding: 3.125rem;

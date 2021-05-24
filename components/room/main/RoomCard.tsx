@@ -4,6 +4,7 @@ import { differenceInDays } from 'date-fns';
 import Link from 'next/link';
 import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components';
+import { makeMoneyString } from '../../../lib/utils';
 import { useSelector } from '../../../store';
 import palette from '../../../styles/palette';
 import { RoomType } from '../../../types/room';
@@ -166,6 +167,21 @@ const RoomCard: React.FC<IProps> = ({ room, showMap }) => {
         <a>
           <div className="room-card-photo-wrapper">
             <img src={room.photos[0]} alt="" />
+          </div>
+          <div className="room-card-info-text">
+            <p className="room-card-room-info">
+              {room.buildingType} {translatedRoomType} {room.district} {room.city}
+            </p>
+            <p className="room-card-title">{room.title}</p>
+            <div className="room-card-text-divider" />
+            <p className="room-card-price">
+              <b>KRW {room.price}</b>/1박
+            </p>
+            {!!remainDays && (
+              <p className="room-card-total-price">
+                총 요금: KRW {makeMoneyString(`${Number(room.price) * remainDays}`)}
+              </p>
+            )}
           </div>
         </a>
       </Link>
