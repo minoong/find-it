@@ -1,6 +1,8 @@
+/* eslint-disable react/jsx-boolean-value */
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from '../../../store';
+import RoomCard from './RoomCard';
 
 const RoomListBlock = styled.div`
   display: flex;
@@ -14,7 +16,7 @@ const RoomList: React.FC = () => {
   return (
     <RoomListBlock>
       {rooms.map((room) => (
-        <RoomCard room={room} key={room.id} />
+        <RoomCard room={room} key={room.id} showMap={true} />
       ))}
     </RoomListBlock>
   );
